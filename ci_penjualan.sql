@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2022 at 05:39 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.28
+-- Generation Time: May 16, 2022 at 03:39 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,6 +80,35 @@ INSERT INTO `barang_master` (`kode_barang`, `nama_barang`, `satuan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bulan`
+--
+
+CREATE TABLE `bulan` (
+  `id` int(11) NOT NULL,
+  `namabulan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bulan`
+--
+
+INSERT INTO `bulan` (`id`, `namabulan`) VALUES
+(1, 'Januari'),
+(2, 'Februari'),
+(3, 'Maret'),
+(4, 'April'),
+(5, 'Mei'),
+(6, 'Juni'),
+(7, 'Juli'),
+(8, 'Agustus'),
+(9, 'September'),
+(10, 'Oktober'),
+(11, 'November'),
+(12, 'Desember');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cabang`
 --
 
@@ -118,8 +147,8 @@ CREATE TABLE `historibayar` (
 --
 
 INSERT INTO `historibayar` (`nobukti`, `no_faktur`, `tglbayar`, `bayar`, `id_user`) VALUES
-('22000002', 'PST05220003', '2022-05-05', 40000, 'USR001'),
-('22000001', 'PST05220001', '2022-05-04', 40000, 'USR001');
+('22000001', 'PST04220003', '2022-05-01', 20000, 'USR001'),
+('22000002', 'PST04220003', '2022-05-01', 20000, 'USR001');
 
 -- --------------------------------------------------------
 
@@ -157,8 +186,7 @@ CREATE TABLE `pelanggan` (
 INSERT INTO `pelanggan` (`kode_pelanggan`, `nik`, `no_kk`, `nama_pelanggan`, `tgl_lahir`, `kecamatan`, `kelurahan`, `alamat_pelanggan`, `no_hp`, `pasar`, `hari`, `kode_cabang`, `id_sales`, `latitude`, `longitude`, `limitpel`, `time_stamps`, `foto`, `kepemilikan`, `lama_berjualan`) VALUES
 ('CS001', '', '', 'Mas Bro', '0000-00-00', '', '', 'Jl. ABC', '089999999999', '', '', 'JTS', NULL, NULL, NULL, NULL, '2022-04-26 12:49:58', NULL, NULL, NULL),
 ('CS002', '', '', 'Euis', '0000-00-00', '', '', 'Jl.123', '081312341234', '', '', 'PST', NULL, NULL, NULL, NULL, '2022-04-26 12:51:10', NULL, NULL, NULL),
-('CS003', '', '', 'Cecep Margocep', '0000-00-00', '', '', 'Jl. Bango', '087654321234', '', '', 'RCK', NULL, NULL, NULL, NULL, '2022-04-26 12:51:48', NULL, NULL, NULL),
-('CSR007', '', '', 'Fathan', '0000-00-00', '', '', 'Tasikmalaya', '090128312322', '', '', 'JTS', NULL, NULL, NULL, NULL, '2022-05-03 15:10:40', NULL, NULL, NULL);
+('CS003', '', '', 'Cecep Margocep', '0000-00-00', '', '', 'Jl. Bango', '087654321234', '', '', 'RCK', NULL, NULL, NULL, NULL, '2022-04-26 12:51:48', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -180,9 +208,10 @@ CREATE TABLE `penjualan` (
 --
 
 INSERT INTO `penjualan` (`no_faktur`, `tgltransaksi`, `kode_pelanggan`, `jenistransaksi`, `jatuhtempo`, `id_user`) VALUES
-('PST05220003', '2022-05-05', 'CS003', 'tunai', '2022-06-05', 'USR001'),
-('PST05220002', '2022-05-02', 'CS002', 'kredit', '2022-06-02', 'USR001'),
-('PST05220001', '2022-05-03', 'CS001', 'kredit', '2022-06-03', 'USR001');
+('PST04220005', '2022-04-29', 'CS002', 'kredit', '2022-05-29', 'USR001'),
+('PST04220004', '2022-04-29', 'CS001', 'kredit', '2022-05-29', 'USR001'),
+('PST04220003', '2022-04-29', 'CS003', 'tunai', '2022-05-29', 'USR001'),
+('PST04220001', '2022-04-29', 'CS001', 'tunai', '2022-05-29', 'USR001');
 
 -- --------------------------------------------------------
 
@@ -202,9 +231,9 @@ CREATE TABLE `penjualan_detail` (
 --
 
 INSERT INTO `penjualan_detail` (`no_faktur`, `kode_barang`, `harga`, `qty`) VALUES
-('PST05220001', 'DG03', 90000, 2),
-('PST05220002', 'CS01', 15000, 6),
-('PST05220003', 'DG01', 8000, 5);
+('PST04220001', 'CS01', 15000, 2),
+('PST04220003', 'CS03', 18000, 2),
+('PST04220004', 'DG03', 90000, 1);
 
 -- --------------------------------------------------------
 
@@ -241,8 +270,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `nama_lengkap`, `no_hp`, `username`, `password`, `level`, `kode_cabang`) VALUES
 ('USR001', 'Mimin Admin', '087788025588', 'admin', '$2y$10$Qis1vmK01zsIoU/SIbx.Ae0aq6Dw90ENNFbrCQEsCrKhXh1O65e5C', 'administrator', 'PST'),
-('USR002', 'Mba Kasir', '081234567890', 'daffa', '$2y$10$LfJ/P9d.CA05M88D6DU3J.mPkHgvyucFplp0itPZRLM/NO.quo6c6', 'kasir', 'JTS'),
-('USR003', 'Fitriani', '08122012846', 'fitri', 'fitri', 'kepala cabang', 'TSM');
+('USR002', 'Mba Kasir', '081234567890', 'daffa', '$2y$10$LfJ/P9d.CA05M88D6DU3J.mPkHgvyucFplp0itPZRLM/NO.quo6c6', 'kasir', 'JTS');
 
 -- --------------------------------------------------------
 
@@ -273,7 +301,7 @@ CREATE TABLE `view_totalpenjualan` (
 --
 DROP TABLE IF EXISTS `view_totalbayar`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_totalbayar`  AS SELECT `historibayar`.`no_faktur` AS `no_faktur`, sum(`historibayar`.`bayar`) AS `totalbayar` FROM `historibayar` GROUP BY `historibayar`.`no_faktur``no_faktur`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_totalbayar`  AS SELECT `historibayar`.`no_faktur` AS `no_faktur`, sum(`historibayar`.`bayar`) AS `totalbayar` FROM `historibayar` GROUP BY `historibayar`.`no_faktur` ;
 
 -- --------------------------------------------------------
 
@@ -282,7 +310,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_totalpenjualan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_totalpenjualan`  AS SELECT `penjualan_detail`.`no_faktur` AS `no_faktur`, sum(`penjualan_detail`.`harga` * `penjualan_detail`.`qty`) AS `totalpenjualan` FROM `penjualan_detail` GROUP BY `penjualan_detail`.`no_faktur``no_faktur`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_totalpenjualan`  AS SELECT `penjualan_detail`.`no_faktur` AS `no_faktur`, sum(`penjualan_detail`.`harga` * `penjualan_detail`.`qty`) AS `totalpenjualan` FROM `penjualan_detail` GROUP BY `penjualan_detail`.`no_faktur` ;
 
 --
 -- Indexes for dumped tables
@@ -299,6 +327,12 @@ ALTER TABLE `barang_harga`
 --
 ALTER TABLE `barang_master`
   ADD PRIMARY KEY (`kode_barang`) USING BTREE;
+
+--
+-- Indexes for table `bulan`
+--
+ALTER TABLE `bulan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cabang`
@@ -350,6 +384,16 @@ ALTER TABLE `penjualan_detail_temp`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bulan`
+--
+ALTER TABLE `bulan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -75,10 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'ci_penjualan',
+	'port'	=> '5432',
+	'hostname' => 'ec2-3-229-11-55.compute-1.amazonaws.com',
+	'username' => 'sjuhatqdjvgyft',
+	'password' => 'aeeb4faebf5d4f6c837f80cbc6b7aaef305ea96b28489416c7a6f8ce5b3cd917',
+	'database' => 'dd2ilk94uh83gi',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -92,5 +93,7 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => TRUE,
+	'uri' => 'postgres://sjuhatqdjvgyft:aeeb4faebf5d4f6c837f80cbc6b7aaef305ea96b28489416c7a6f8ce5b3cd917@ec2-3-229-11-55.compute-1.amazonaws.com:5432/dd2ilk94uh83gi',
+	'heroku_CLI' => 'heroku pg:psql postgresql-clean-05726 --app breadindeploy5'
 );
